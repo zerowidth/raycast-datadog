@@ -1,0 +1,42 @@
+{
+  "name": "datadog",
+  "title": "Datadog",
+  "description": "Browse dashboards, alerts, etc. on Datadog",
+  "icon": "dd_icon.png",
+  "iconDark": "command-icon.png",
+  "author": "zerowidth",
+  "commands": [
+    {
+      "name": "index",
+      "title": "Open Datadog dashboard",
+      "description": "Open Datadog dashboards",
+      "mode": "view"
+    },
+    {
+      "name": "config",
+      "title": "Configure Datadog dashboard list",
+      "description": "Oepn the Datadog dashboard list config file in VSCode",
+      "mode": "no-view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^0.1.0",
+    "fuzzysort": "^1.1.4",
+    "open": "^8.2.1",
+    "yaml": "^2.0.0-8"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.3",
+    "@types/node-fetch": "^2.5.12",
+    "@types/react": "^17.0.15",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^7.31.0",
+    "eslint-config-prettier": "^8.3.0",
+    "typescript": "^4.3.5"
+  },
+  "scripts": {
+    "build": "ray build -e dist",
+    "dev": "ray develop"
+  }
+}
