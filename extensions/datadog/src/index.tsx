@@ -100,9 +100,13 @@ function DashboardList() {
   return (
     <List isLoading={isLoading} onSearchTextChange={setSearchQuery} searchBarPlaceholder="Filter dashboards...">
       {dashboards?.map((dashboard) => (
-        <List.Item id={dashboard.name} key={dashboard.name} title={dashboard.name} icon={Icon.TextDocument}>
-          <DashboardActions dashboard={dashboard} />
-        </List.Item>
+        <List.Item
+          id={dashboard.name}
+          key={dashboard.name}
+          title={dashboard.name}
+          icon={Icon.TextDocument}
+          actions={<DashboardActions dashboard={dashboard} />}
+        />
       ))}
     </List>
   );
@@ -146,17 +150,23 @@ function DashboardOptions(props: DashboardProps) {
       searchBarPlaceholder="Filter predefined views..."
     >
       {props.dashboard.options?.map((option) => (
-        <List.Item id={option} key={option} title={option} icon={Icon.TextDocument}>
-          <ActionPanel>
-            <OpenInBrowserAction key="browser" url={dashboard.url(option)} />
-            <CopyToClipboardAction
-              title={"Copy URL to Clipboard"}
-              key="clipboard"
-              content={dashboard.url(option)}
-              shortcut={{ modifiers: ["cmd"], key: "c" }}
-            />
-          </ActionPanel>
-        </List.Item>
+        <List.Item
+          id={option}
+          key={option}
+          title={option}
+          icon={Icon.TextDocument}
+          actions={
+            <ActionPanel>
+              <OpenInBrowserAction key="browser" url={dashboard.url(option)} />
+              <CopyToClipboardAction
+                title={"Copy URL to Clipboard"}
+                key="clipboard"
+                content={dashboard.url(option)}
+                shortcut={{ modifiers: ["cmd"], key: "c" }}
+              />
+            </ActionPanel>
+          }
+        />
       ))}
     </List>
   );
