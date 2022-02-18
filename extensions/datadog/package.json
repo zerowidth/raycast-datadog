@@ -20,10 +20,10 @@
     }
   ],
   "dependencies": {
-    "@raycast/api": "^0.1.0",
-    "fuzzysort": "^1.1.4",
-    "open": "^8.2.1",
-    "yaml": "^2.0.0-8"
+    "@raycast/api": "^1.25.0",
+    "fuzzysort": "^1.2.1",
+    "open": "^8.4.0",
+    "yaml": "^2.0.0-10"
   },
   "devDependencies": {
     "@types/node": "^16.4.3",
