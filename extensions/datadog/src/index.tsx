@@ -104,7 +104,7 @@ function DashboardList() {
           id={dashboard.name}
           key={dashboard.name}
           title={dashboard.name}
-          icon={Icon.TextDocument}
+          icon={Icon.BlankDocument}
           actions={<DashboardActions dashboard={dashboard} />}
         />
       ))}
@@ -154,7 +154,7 @@ function DashboardOptions(props: DashboardProps) {
           id={option}
           key={option}
           title={option}
-          icon={Icon.TextDocument}
+          icon={Icon.BlankDocument}
           actions={
             <ActionPanel>
               <OpenInBrowserAction key="browser" url={dashboard.url(option)} />
