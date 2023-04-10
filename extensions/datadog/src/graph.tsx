@@ -1,6 +1,7 @@
 import { Clipboard, closeMainWindow, Toast, showToast } from "@raycast/api";
 import { fetch } from "cross-fetch";
 import { parse } from "node-html-parser";
+import  dateFormat  from "dateformat";
 import * as fs from "fs";
 
 async function showError(message: string) {
@@ -63,7 +64,8 @@ export default async function Graph() {
     return;
   }
 
-  const imageFile = "/tmp/" + new URL(imageURL).pathname.split("/").pop();
+  const timestamp = dateFormat(new Date(), "yyyy-mm-dd_HH-MM-ss");
+  const imageFile = "/tmp/" +timestamp+ " " + new URL(imageURL).pathname.split("/").pop();
   fs.writeFileSync(imageFile, Buffer.from(await imageResponse.arrayBuffer()));
   console.log("wrote image file", imageFile);
 
