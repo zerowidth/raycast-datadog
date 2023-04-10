@@ -155,7 +155,7 @@ function DashboardOptions(props: DashboardProps) {
           icon={Icon.BlankDocument}
           actions={
             <ActionPanel>
-              <OpenInBrowserAction key="browser" url={dashboard.url(option)} />
+              <Action.OpenInBrowser key="browser" url={dashboard.url(option)} />
               <Action.CopyToClipboard
                 title={"Copy URL to Clipboard"}
                 key="clipboard"
