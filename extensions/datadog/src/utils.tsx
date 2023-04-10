@@ -19,12 +19,12 @@ dashboards:
   #     - "staging"
   #  
   "Dashboard list": "dashboard/lists"
-`
+`;
 
-export const configPath = path.join(environment.supportPath, "dashboards.yaml")
+export const configPath = path.join(environment.supportPath, "dashboards.yaml");
 export function initializeConfigFile(): void {
   fs.mkdirSync(environment.supportPath, { recursive: true });
   if (!fs.existsSync(configPath)) {
-    fs.writeFileSync(configPath, defaultConfig)
-  } 
+    fs.writeFileSync(configPath, defaultConfig);
+  }
 }

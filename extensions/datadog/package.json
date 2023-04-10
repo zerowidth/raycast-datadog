@@ -3,36 +3,42 @@
   "title": "Datadog",
   "description": "Browse dashboards, alerts, etc. on Datadog",
   "icon": "dd_icon.png",
-  "iconDark": "command-icon.png",
   "author": "zerowidth",
   "commands": [
     {
       "name": "index",
-      "title": "Open Datadog dashboard",
-      "description": "Open Datadog dashboards",
+      "title": "Open Datadog Dashboard",
+      "description": "Open Datadog Dashboards",
       "mode": "view"
     },
     {
       "name": "config",
-      "title": "Configure Datadog dashboard list",
-      "description": "Oepn the Datadog dashboard list config file in VSCode",
+      "title": "Configure Datadog Dashboard List",
+      "description": "Oepn the Datadog Dashboard List Config file in VSCode",
+      "mode": "no-view"
+    },
+    {
+      "name": "graph",
+      "title": "Insert Datadog Graph from Clipboard",
+      "description": "Inserts a Datadog Graph image and URL from a graph URL on the clipboard",
       "mode": "no-view"
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.25.0",
+    "@raycast/api": "^1.48.8",
+    "cross-fetch": "^3.1.5",
+    "dateformat": "^5.0.3",
     "fuzzysort": "^1.2.1",
+    "node-html-parser": "^6.1.5",
     "open": "^8.4.0",
     "yaml": "^2.0.0-10"
   },
   "devDependencies": {
-    "@types/node": "^16.4.3",
+    "@raycast/eslint-config": "^1.0.5",
+    "@types/dateformat": "^5.0.0",
+    "@types/node": "^18.8.3",
     "@types/node-fetch": "^2.5.12",
-    "@types/react": "^17.0.15",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
-    "@typescript-eslint/parser": "^4.28.5",
     "eslint": "^7.31.0",
-    "eslint-config-prettier": "^8.3.0",
     "typescript": "^4.3.5"
   },
   "scripts": {

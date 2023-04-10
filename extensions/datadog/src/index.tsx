@@ -1,10 +1,8 @@
 import {
+  Action,
   ActionPanel,
-  CopyToClipboardAction,
   List,
-  OpenInBrowserAction,
   Icon,
-  render,
   useNavigation,
 } from "@raycast/api";
 import { useEffect, useState } from "react";
@@ -94,7 +92,7 @@ function searchDashboards(query?: string): {
   return { dashboards, isLoading };
 }
 
-function DashboardList() {
+export default function DashboardList() {
   const [searchQuery, setSearchQuery] = useState<string>();
   const { dashboards, isLoading } = searchDashboards(searchQuery);
   return (
@@ -104,7 +102,7 @@ function DashboardList() {
           id={dashboard.name}
           key={dashboard.name}
           title={dashboard.name}
-          icon={Icon.TextDocument}
+          icon={Icon.BlankDocument}
           actions={<DashboardActions dashboard={dashboard} />}
         />
       ))}
@@ -131,8 +129,8 @@ function DashboardActions(props: DashboardProps) {
   }
   return (
     <ActionPanel>
-      <OpenInBrowserAction key="browser" url={props.dashboard.url()} />
-      <CopyToClipboardAction
+      <Action.OpenInBrowser key="browser" url={props.dashboard.url()} />
+      <Action.CopyToClipboard
         title={"Copy URL to Clipboard"}
         key="clipboard"
         content={props.dashboard.url()}
@@ -154,11 +152,11 @@ function DashboardOptions(props: DashboardProps) {
           id={option}
           key={option}
           title={option}
-          icon={Icon.TextDocument}
+          icon={Icon.BlankDocument}
           actions={
             <ActionPanel>
               <OpenInBrowserAction key="browser" url={dashboard.url(option)} />
-              <CopyToClipboardAction
+              <Action.CopyToClipboard
                 title={"Copy URL to Clipboard"}
                 key="clipboard"
                 content={dashboard.url(option)}
@@ -173,4 +171,3 @@ function DashboardOptions(props: DashboardProps) {
 }
 
 initializeConfigFile();
-render(<DashboardList />);
