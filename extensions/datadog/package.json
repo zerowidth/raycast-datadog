@@ -3,19 +3,18 @@
   "title": "Datadog",
   "description": "Browse dashboards, alerts, etc. on Datadog",
   "icon": "dd_icon.png",
-  "iconDark": "command-icon.png",
   "author": "zerowidth",
   "commands": [
     {
       "name": "index",
-      "title": "Open Datadog dashboard",
-      "description": "Open Datadog dashboards",
+      "title": "Open Datadog Dashboard",
+      "description": "Open Datadog Dashboards",
       "mode": "view"
     },
     {
       "name": "config",
-      "title": "Configure Datadog dashboard list",
-      "description": "Oepn the Datadog dashboard list config file in VSCode",
+      "title": "Configure Datadog Dashboard List",
+      "description": "Oepn the Datadog Dashboard List Config file in VSCode",
       "mode": "no-view"
     }
   ],
