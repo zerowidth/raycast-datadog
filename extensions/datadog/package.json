@@ -16,11 +16,19 @@
       "title": "Configure Datadog Dashboard List",
       "description": "Oepn the Datadog Dashboard List Config file in VSCode",
       "mode": "no-view"
+    },
+    {
+      "name": "graph",
+      "title": "Insert Datadog Graph from Clipboard",
+      "description": "Inserts a Datadog Graph image and URL from a graph URL on the clipboard",
+      "mode": "no-view"
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.48.8",
+    "cross-fetch": "^3.1.5",
     "fuzzysort": "^1.2.1",
+    "node-html-parser": "^6.1.5",
     "open": "^8.4.0",
     "yaml": "^2.0.0-10"
   },
