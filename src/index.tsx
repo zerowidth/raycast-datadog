@@ -3,17 +3,11 @@ import { configPath, initializeConfigFile } from "./utils";
 import fs from "fs";
 import YAML from "yaml";
 
-// YAML config types
-type DashboardConfig = string | Template;
-type Template = {
-  path: string;
-  options: string[];
-};
+type DashboardConfig = string | { path: string; options: string[] };
 type ParsedConfig = {
   dashboards: { [name: string]: DashboardConfig };
 };
 
-// Internal types
 class Dashboard {
   name: string;
   path: string;
