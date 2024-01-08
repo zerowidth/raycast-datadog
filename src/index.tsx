@@ -1,4 +1,4 @@
-import { Action, ActionPanel, List, Icon, useNavigation } from "@raycast/api";
+import { Action, ActionPanel, List, Icon } from "@raycast/api";
 import { configPath, initializeConfigFile } from "./utils";
 import fs from "fs";
 import YAML from "yaml";
@@ -46,11 +46,10 @@ class Dashboard {
 }
 
 export default function DashboardList() {
+  initializeConfigFile();
   const config = fs.readFileSync(configPath).toString();
   const parsed = YAML.parse(config) as ParsedConfig;
-  const dashboards = Object.entries(parsed.dashboards).map(
-    ([name, config]) => new Dashboard(name, config)
-  );
+  const dashboards = Object.entries(parsed.dashboards).map(([name, config]) => new Dashboard(name, config));
 
   return (
     <List searchBarPlaceholder="Filter dashboards...">
@@ -59,7 +58,7 @@ export default function DashboardList() {
           id={dashboard.name}
           key={dashboard.name}
           title={dashboard.name}
-          icon={Icon.BlankDocument}
+          icon={dashboard.hasOptions() ? Icon.ChevronRight : Icon.Document}
           actions={<DashboardActions dashboard={dashboard} />}
         />
       ))}
@@ -67,55 +66,41 @@ export default function DashboardList() {
   );
 }
 
-interface DashboardProps {
-  dashboard: Dashboard;
-}
-function DashboardActions(props: DashboardProps) {
-  const { push } = useNavigation();
-  if (props.dashboard.hasOptions()) {
-    return (
-      <ActionPanel>
-        <ActionPanel.Item
-          title="Choose predefined view"
-          onAction={() => {
-            push(<DashboardOptions dashboard={props.dashboard} />);
-          }}
-        />
-      </ActionPanel>
-    );
-  }
-  return (
+function DashboardActions({ dashboard }: { dashboard: Dashboard }) {
+  return dashboard.hasOptions() ? (
     <ActionPanel>
-      <Action.OpenInBrowser key="browser" url={props.dashboard.url()} />
+      <Action.Push title="Choose Predefined View" target={<DashboardOptions dashboard={dashboard} />} />
+    </ActionPanel>
+  ) : (
+    <ActionPanel>
+      <Action.OpenInBrowser key="browser" url={dashboard.url()} />
       <Action.CopyToClipboard
         title={"Copy URL to Clipboard"}
         key="clipboard"
-        content={props.dashboard.url()}
+        content={dashboard.url()}
         shortcut={{ modifiers: ["cmd"], key: "c" }}
       />
     </ActionPanel>
   );
 }
 
-function DashboardOptions(props: DashboardProps) {
-  const dashboard = props.dashboard;
+function DashboardOptions({ dashboard }: { dashboard: Dashboard }) {
   return (
     <List
-      navigationTitle={`Open ${props.dashboard.name} dashboard with...`}
+      navigationTitle={`Open ${dashboard.name} dashboard with...`}
       searchBarPlaceholder="Filter predefined views..."
     >
-      {props.dashboard.options?.map((option) => (
+      {dashboard.options?.map((option) => (
         <List.Item
           id={option}
           key={option}
           title={option}
-          icon={Icon.BlankDocument}
+          icon={Icon.Document}
           actions={
             <ActionPanel>
-              <Action.OpenInBrowser key="browser" url={dashboard.url(option)} />
+              <Action.OpenInBrowser url={dashboard.url(option)} />
               <Action.CopyToClipboard
                 title={"Copy URL to Clipboard"}
-                key="clipboard"
                 content={dashboard.url(option)}
                 shortcut={{ modifiers: ["cmd"], key: "c" }}
               />
@@ -126,5 +111,3 @@ function DashboardOptions(props: DashboardProps) {
     </List>
   );
 }
-
-initializeConfigFile();
