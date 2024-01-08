@@ -24,6 +24,15 @@
       "mode": "no-view"
     }
   ],
+  "preferences": [
+    {
+      "name": "editor",
+      "type": "appPicker",
+      "title": "Editor",
+      "description": "The editor app to use when opening the configuration file",
+      "default": "/Applications/Visual Studio Code.app"
+    }
+  ],
   "dependencies": {
     "@raycast/api": "^1.64.5",
     "cross-fetch": "^4.0.0",
