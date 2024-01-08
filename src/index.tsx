@@ -1,15 +1,7 @@
-import {
-  Action,
-  ActionPanel,
-  List,
-  Icon,
-  useNavigation,
-} from "@raycast/api";
-import { useEffect, useState } from "react";
+import { Action, ActionPanel, List, Icon, useNavigation } from "@raycast/api";
 import { configPath, initializeConfigFile } from "./utils";
-import * as fs from "fs";
-import * as YAML from "yaml";
-import fuzzysort = require("fuzzysort");
+import fs from "fs";
+import YAML from "yaml";
 
 // YAML config types
 type DashboardConfig = string | Template;
@@ -53,51 +45,16 @@ class Dashboard {
   }
 }
 
-type Dashboards = Dashboard[] | undefined;
-type DashboardState = {
-  dashboardList: Dashboards;
-  isLoading: boolean;
-};
-
-function searchDashboards(query?: string): {
-  dashboards: Dashboards;
-  isLoading: boolean;
-} {
-  const [{ dashboardList, isLoading }, setDashboardList] = useState<DashboardState>({
-    dashboardList: undefined,
-    isLoading: true,
-  });
-  const [dashboards, setDashboards] = useState<Dashboards>();
-
-  useEffect(() => {
-    const config = fs.readFileSync(configPath).toString();
-    const parsed = YAML.parse(config) as ParsedConfig;
-    let list: Dashboard[] = [];
-    for (const [name, path] of Object.entries(parsed.dashboards)) {
-      list = list.concat(new Dashboard(name, path));
-    }
-    setDashboardList({ dashboardList: list, isLoading: false });
-  }, []);
-
-  useEffect(() => {
-    if (dashboardList == undefined) {
-      return;
-    }
-    let filtered = dashboardList;
-    if (filtered.length > 0 && query && query.length > 0) {
-      filtered = fuzzysort.go(query, filtered, { keys: ["name"], allowTypo: false }).map((result) => result.obj);
-    }
-    setDashboards(filtered);
-  }, [query, dashboardList]);
-  return { dashboards, isLoading };
-}
-
 export default function DashboardList() {
-  const [searchQuery, setSearchQuery] = useState<string>();
-  const { dashboards, isLoading } = searchDashboards(searchQuery);
+  const config = fs.readFileSync(configPath).toString();
+  const parsed = YAML.parse(config) as ParsedConfig;
+  const dashboards = Object.entries(parsed.dashboards).map(
+    ([name, config]) => new Dashboard(name, config)
+  );
+
   return (
-    <List isLoading={isLoading} onSearchTextChange={setSearchQuery} searchBarPlaceholder="Filter dashboards...">
-      {dashboards?.map((dashboard) => (
+    <List searchBarPlaceholder="Filter dashboards...">
+      {dashboards.map((dashboard) => (
         <List.Item
           id={dashboard.name}
           key={dashboard.name}
